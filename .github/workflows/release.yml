@@ -16,15 +16,15 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Setup pnpm
         uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
 
       - name: Setup Node.js
-        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0 # zizmor: ignore[cache-poisoning]
         with:
           node-version-file: ".node-version"
-          cache: "pnpm"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -40,10 +40,11 @@ jobs:
           echo "Version: ${VERSION}"
 
       - name: Create release package
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
         run: |
-          mv package.zip localeja-v${{ steps.version.outputs.version }}.zip
-
-          zip -r localeja-source-v${{ steps.version.outputs.version }}.zip . \
+          mv package.zip "localeja-v${VERSION}.zip"
+          zip -r "localeja-source-v${VERSION}.zip" . \
             -x "*.git*" \
             -x "*node_modules*" \
             -x "*release-package*" \
@@ -52,9 +53,11 @@ jobs:
       - name: Create GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
+          TAG_NAME: ${{ github.ref_name }}
+          VERSION: ${{ steps.version.outputs.version }}
         run: |
-          gh release create "${{ github.ref_name }}" \
-            --title "Release ${{ github.ref_name }}" \
+          gh release create "$TAG_NAME" \
+            --title "Release $TAG_NAME" \
             --generate-notes \
-            localeja-v${{ steps.version.outputs.version }}.zip \
-            localeja-source-v${{ steps.version.outputs.version }}.zip
+            "localeja-v${VERSION}.zip" \
+            "localeja-source-v${VERSION}.zip"
