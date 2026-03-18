@@ -14,6 +14,6 @@ jobs:
       - name: Install zizmor
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release download --repo woodruffw/zizmor --pattern 'zizmor-*-x86_64-unknown-linux-gnu.tar.gz' --output - | tar -xz
+        run: gh release download --repo woodruffw/zizmor --pattern 'zizmor-x86_64-unknown-linux-gnu.tar.gz' --output - | tar -xz
       - name: Run zizmor
         run: ./zizmor .github/workflows/
