@@ -12,7 +12,7 @@
     "oxfmt": "0.42.0",
     "oxlint": "1.57.0",
     "typescript": "5.9.3",
-    "vite": "8.0.2"
+    "vite": "8.0.3"
   },
   "scripts": {
     "build": "vite build",
