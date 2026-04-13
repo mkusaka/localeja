@@ -8,6 +8,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
+    "types": ["chrome"],
     "skipLibCheck": true
   },
   "include": ["*.ts", "**/*.ts"],
