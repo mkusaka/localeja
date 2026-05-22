@@ -9,8 +9,8 @@
   "devDependencies": {
     "@crxjs/vite-plugin": "2.4.0",
     "@types/chrome": "0.1.42",
-    "oxfmt": "0.49.0",
-    "oxlint": "1.64.0",
+    "oxfmt": "0.50.0",
+    "oxlint": "1.65.0",
     "typescript": "6.0.3",
     "vite": "8.0.13"
   },
